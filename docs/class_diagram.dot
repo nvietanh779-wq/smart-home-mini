@@ -1,0 +1,30 @@
+digraph G {
+  rankdir=BT; fontname="Helvetica"; nodesep=0.5; ranksep=0.7;
+  node [shape=record, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#FFFFFF"];
+  edge [fontname="Helvetica", fontsize=10];
+
+  IDevice [label="{«interface»\nIDevice|+ TurnOn() : void\l+ TurnOff() : void\l}", fillcolor="#E8F0FE"];
+  ILockable [label="{«interface»\nILockable|+ Lock() : void\l+ Unlock() : void\l}", fillcolor="#E8F0FE"];
+
+  SmartLight [label="{SmartLight|- name : string\l|+ SmartLight(name)\l+ TurnOn() : void\l+ TurnOff() : void\l}"];
+  SmartFan [label="{SmartFan|- name : string\l|+ SmartFan(name)\l+ TurnOn() : void\l+ TurnOff() : void\l}"];
+  SmartDoor [label="{SmartDoor|- name : string\l|+ SmartDoor(name)\l+ TurnOn() : void\l+ TurnOff() : void\l+ Lock() : void\l+ Unlock() : void\l}"];
+
+  DeviceFactory [label="{«static»\nDeviceFactory||+ Create(type, name) : IDevice\l}", fillcolor="#FFF4E0"];
+  HomeConfiguration [label="{«sealed, singleton»\nHomeConfiguration|- lazy : Lazy\<HomeConfiguration\>\l+ Instance : HomeConfiguration\l+ HomeName : string\l+ NightLightLevel : int\l|- HomeConfiguration()\l}", fillcolor="#E6F4EA"];
+  SmartHomeFacade [label="{«sealed, facade»\nSmartHomeFacade|- light : IDevice\l- fan : IDevice\l- door : ILockable\l|+ SmartHomeFacade(light, fan, door)\l+ GoToWork() : void\l+ GoToSleep() : void\l}", fillcolor="#FDE7E9"];
+
+  edge [arrowhead=empty, style=dashed];
+  SmartLight -> IDevice; SmartFan -> IDevice; SmartDoor -> IDevice; SmartDoor -> ILockable;
+
+  edge [arrowhead=open, style=dashed];
+  DeviceFactory -> SmartLight [label="«create»"];
+  DeviceFactory -> SmartFan [label="«create»"];
+  DeviceFactory -> SmartDoor [label="«create»"];
+  DeviceFactory -> IDevice [label="returns"];
+
+  edge [arrowhead=vee, style=solid];
+  SmartHomeFacade -> IDevice [label="light, fan"];
+  SmartHomeFacade -> ILockable [label="door"];
+  SmartHomeFacade -> HomeConfiguration [label="reads Instance", style=dashed];
+}
