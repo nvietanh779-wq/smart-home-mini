@@ -1,0 +1,34 @@
+=== DEMO FACTORY ===
+Living room light: ON
+Living room fan: OFF
+Main door: LOCKED
+
+=== DEMO SINGLETON ===
+True
+
+=== DEMO FACADE ===
+-- GoToWork --
+Living room light: OFF
+Living room fan: OFF
+Main door: LOCKED
+-- GoToSleep --
+Living room fan: OFF
+Main door: LOCKED
+Living room light: ON
+Night light level: 30%
+
+=== KIEM THU ===
+[PASS] T1: Factory tra dung kieu doi tuong
+  (ngoai le: Unsupported device type: camera)
+[PASS] T2: Phat sinh ArgumentException
+[PASS] T3: Hai bien cung tham chieu mot doi tuong
+Living room light: OFF
+Living room fan: OFF
+Main door: LOCKED
+[PASS] T4: Den tat, quat tat, cua khoa
+Living room fan: OFF
+Main door: LOCKED
+Living room light: ON
+Night light level: 30%
+[PASS] T5: Quat tat, cua khoa, den bat, hien muc sang
+Ket qua: 5 PASS, 0 FAIL
